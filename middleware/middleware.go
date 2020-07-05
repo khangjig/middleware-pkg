@@ -7,13 +7,6 @@ import (
 	"net/http"
 )
 
-func Response(c echo.Context, responseError model.DataResponse) error {
-	return c.JSON(responseError.Status, model.DataResponse{
-		Status:  responseError.Status,
-		Message: responseError.Message,
-	})
-}
-
 func SetClaim(secretKey string, allowedRoutes []model.AllowedRoute) func(next echo.HandlerFunc) echo.HandlerFunc {
 	handlerFunc := func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
@@ -56,4 +49,11 @@ func isAllowedRoute(listRoutes []model.AllowedRoute, checkRoute model.AllowedRou
 	}
 
 	return false
+}
+
+func Response(c echo.Context, responseError model.DataResponse) error {
+	return c.JSON(responseError.Status, model.DataResponse{
+		Status:  responseError.Status,
+		Message: responseError.Message,
+	})
 }
